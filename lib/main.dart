@@ -1,8 +1,11 @@
 import 'package:assignment_syoft/view/login_signup.dart';
 import 'package:assignment_syoft/view/onboarding_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
    
       ),
       debugShowCheckedModeBanner: false,
-      home: const LoginSignUpPage()
+      home: const OnboardingScreen()
     );
   }
 }

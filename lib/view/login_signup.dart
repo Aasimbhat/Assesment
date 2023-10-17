@@ -1,6 +1,10 @@
+import 'package:assignment_syoft/utlis/utlis.dart';
+import 'package:assignment_syoft/view/dashboard.dart';
 import 'package:assignment_syoft/widgets/round_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
 
 class LoginSignUpPage extends StatefulWidget {
@@ -13,9 +17,17 @@ class LoginSignUpPage extends StatefulWidget {
 class _LoginSignUpPageState extends State<LoginSignUpPage> {
   @override
   Widget build(BuildContext context) {
+      final width = MediaQuery.of(context).size.width * 1;
+    final height = MediaQuery.of(context).size.height * 1;
     final TextEditingController emailController=TextEditingController();
     final TextEditingController passwordController=TextEditingController();
+    final TextEditingController signinController=TextEditingController();
+    final TextEditingController passinController=TextEditingController();
+    final TextEditingController phoneController=TextEditingController();
       final _formfield = GlobalKey<FormState>();
+      final _auth=FirebaseAuth.instance;
+        bool loading=false;
+
 
     return Scaffold(
               resizeToAvoidBottomInset: false, 
@@ -42,10 +54,10 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
             context: context,
            builder: (context){
             return Container(
-           height: 650,
+           height:  height*.65,
            decoration: BoxDecoration(
             color: Color.fromARGB(255, 211, 207, 207),
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight:Radius.circular(30) )
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight:Radius.circular(30) ),
            ),
            child:Column(
             children: [
@@ -119,6 +131,22 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                         ),
                         RoundButton(title: "Login", onTap: (){
                           if(_formfield.currentState!.validate()){
+                            _auth.signInWithEmailAndPassword(email:emailController.text.toString() , 
+                            
+                            password: passwordController.text.toString()).then((value) {
+                              Utlis().toastMessage("Welcome to the dashboard");
+                             Navigator.push(context, MaterialPageRoute(builder: ((context) => DashBoard())));
+                             setState(() {
+                        loading=true;
+                      });
+
+                            }).onError((error, stackTrace) {
+                                setState(() {
+                        loading=false;
+                      });
+                            Utlis().toastMessage(error.toString());
+
+                            });
 
                           }
                         })
@@ -147,7 +175,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
             context: context,
            builder: (context){
             return Container(
-           height: 650,
+           height: height*.7,
            decoration: BoxDecoration(
             color: Color.fromARGB(255, 211, 207, 207),
             borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight:Radius.circular(30) )
@@ -169,7 +197,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                 child: Column(
                   children: [
                     TextFormField(
-                          controller: emailController,
+                          controller: signinController,
                           decoration: InputDecoration(
                               hintText: 'Email',
                               hintStyle: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black) ,
@@ -189,7 +217,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                           height: 20,
                         ),
                         TextFormField(
-                          controller: passwordController,
+                          controller: passinController,
                           obscureText: true,
                           decoration: InputDecoration(
                               hintText: 'Password',
@@ -206,11 +234,32 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                   
                               },
                         ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                         IntlPhoneField(
+                          controller: phoneController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              hintText: 'Phone Number',
+                              hintStyle: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black) ,
+                                 errorStyle:GoogleFonts.poppins(fontSize: 10,fontWeight: FontWeight.bold,color: const Color.fromARGB(255, 65, 60, 60)) ,
+                           
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30)),
+                              prefixIcon: const Icon(Icons.password)),
+                              validator: (value){
+                                if(value==null){
+                                  return "Please enter phone number";
+                                }
+                  
+                              },
+                        ),
                           Align(
                       alignment: Alignment.bottomCenter,
                       child: TextButton(
                           onPressed: () {
-                         ;
+                         
                           
                           },
                           child: Text('Already have an account login?',
@@ -222,9 +271,25 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                         SizedBox(
                           height: 20,
                         ),
-                        RoundButton(title: "Signup", onTap: (){
+                        RoundButton(
+                          title: "Signup",
+                          loading: loading,
+                           onTap: (){
                           if(_formfield.currentState!.validate()){
-
+                            _auth.createUserWithEmailAndPassword(email: signinController.text.toString(),
+                             password: passinController.text.toString()).then((value) {
+                             Utlis().toastMessage("Signup Sucessfull");
+                             Navigator.push(context, MaterialPageRoute(builder: ((context) => LoginSignUpPage())));
+                             setState(() {
+                        loading=true;
+                      });
+                             }).onError((error, stackTrace) {
+                              setState(() {
+                        loading=false;
+                      });
+                            Utlis().toastMessage(error.toString());
+                             });
+                          
                           }
                         })
               

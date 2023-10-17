@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:assignment_syoft/models/demo_data_model.dart';
+import 'package:assignment_syoft/view/login_signup.dart';
 import 'package:assignment_syoft/widgets/dot_indicator.dart';
 import 'package:assignment_syoft/widgets/onBoarding_content.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Text(''),
            TextButton(
             onPressed: (){
+       Navigator.push(context, MaterialPageRoute(builder: ((context) => LoginSignUpPage())));
+
 
             },
             child: Text("Skip",
