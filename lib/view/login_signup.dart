@@ -177,6 +177,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                                         onTap: () {
                                           if (_formfield.currentState!
                                               .validate()) {
+                                                setState(() {
+                                                loading = true;
+                                              });
                                             _auth
                                                 .signInWithEmailAndPassword(
                                                     email: emailController.text
@@ -187,14 +190,15 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                                                 .then((value) {
                                               Utlis().toastMessage(
                                                   "Welcome to the dashboard");
+                                                    setState(() {
+                                                loading = true;
+                                              });
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: ((context) =>
                                                           const DashBoard())));
-                                              setState(() {
-                                                loading = true;
-                                              });
+                                              
                                             }).onError((error, stackTrace) {
                                               setState(() {
                                                 loading = false;
@@ -328,7 +332,13 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                                     Align(
                                       alignment: Alignment.bottomCenter,
                                       child: TextButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: ((context) =>
+                                                        const LoginSignUpPage())));
+                                          },
                                           child: Text(
                                               'Already have an account login?',
                                               style: GoogleFonts.poppins(
@@ -345,6 +355,10 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                                         onTap: () {
                                           if (_formfield.currentState!
                                               .validate()) {
+                                                setState(() {
+                                                loading = true;
+                                              });
+
                                             _auth
                                                 .createUserWithEmailAndPassword(
                                                     email: signinController.text
