@@ -91,7 +91,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                          onPressed: (){
                            _pageController.nextPage(duration:const Duration(milliseconds: 300), curve: Curves.ease);
                          },
-                         child:const Icon(Icons.arrow_forward_outlined) ,
+                         child:Icon(Icons.arrow_forward_outlined) ,
                          ),
                  ),
                   ],

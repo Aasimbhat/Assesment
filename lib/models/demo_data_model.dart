@@ -11,17 +11,17 @@ final List<OnBoard> demo_data=[
   OnBoard(
     image: "asset/Animation1.json",
     title: "Welcome To Syoft",
-    description:  "Learn,Trust,Optamise", 
+    description:  "Transform,Accelrate,Scale", 
     ),
    OnBoard(
     image: "asset/Animation2.json",
-    title: "Welcome To Syoft",
-    description:  "Learn,Trust,Optamise", 
+    title: "We believe in the change",
+    description:  "A change drive by technology and innovation", 
     ),
      OnBoard(
     image: "asset/Animation3.json",
-    title: "Welcome To Syoft",
-    description:  "Learn,Trust,Optamise", 
+    title: "Improving the lives",
+    description:  "To improve businesses with our technology solutions", 
     ),
 
 
