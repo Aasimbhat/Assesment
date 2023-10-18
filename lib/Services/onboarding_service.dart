@@ -12,16 +12,15 @@ class SplashService{
     final auth=FirebaseAuth.instance;
   final user=auth.currentUser;
   if(user!=null){
-    Timer(Duration(seconds: 3), () {
+    
 Navigator.push(context, MaterialPageRoute(builder: (context)=>const DashBoard()));
-     }
-     );
+     
+     
   }else{
-    Timer(Duration(seconds: 3), () {
+    
 Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginSignUpPage())
 );
-     }
-     );
+    
     
     
   }
