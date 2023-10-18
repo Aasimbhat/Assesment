@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:assignment_syoft/Services/onboarding_service.dart';
 import 'package:assignment_syoft/models/demo_data_model.dart';
 import 'package:assignment_syoft/view/login_signup.dart';
 import 'package:assignment_syoft/widgets/dot_indicator.dart';
@@ -13,6 +14,8 @@ class OnboardingScreen extends StatefulWidget {
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
+SplashService splashService=SplashService();
+
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   late PageController _pageController;
@@ -20,6 +23,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   void initState() {
     _pageController=PageController(initialPage: 0);
+        splashService.isLogin(BuildContext ,context);
+
+
     super.initState();
   }
   @override
