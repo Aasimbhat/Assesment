@@ -94,7 +94,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                          onPressed: (){
                            _pageController.nextPage(duration:const Duration(milliseconds: 300), curve: Curves.ease);
                          },
-                         child:Icon(Icons.arrow_forward_outlined) ,
+                         child:_pageIndex == 2 ? TextButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: ((context) => LoginSignUpPage())));
+
+                         },
+                          child:const Text('Start',
+                          style: TextStyle(
+                            color: Colors.white
+
+                          ),
+                          )
+                          )
+                          :const Icon(Icons.arrow_forward_outlined) ,
                          ),
                  ),
                   ],

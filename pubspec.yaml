@@ -44,6 +44,8 @@ dependencies:
   firebase_auth: ^4.0.0
   cloud_firestore: ^4.0.1
   fluttertoast: ^8.1.0
+  awesome_notifications: ^0.8.2
+
 
 
 
